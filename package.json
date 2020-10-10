@@ -1,0 +1,24 @@
+{
+  "name": "nodejswithexpressandmongoose",
+  "version": "1.0.0",
+  "description": "API_MASTERCLASS",
+  "main": "server.js",
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arsaikia/NodeJs_Express_MongoDB.git"
+  },
+  "author": "Arunabh Saikia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arsaikia/NodeJs_Express_MongoDB/issues"
+  },
+  "homepage": "https://github.com/arsaikia/NodeJs_Express_MongoDB#readme"
+}
