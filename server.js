@@ -1,34 +1,21 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const logger = require("./middleware/logger");
+
+// route Files
+const bootcamps = require("./routes/bootcamps");
 
 // Load env variables
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
 
-app.get("/api/v1/bootcamp", (req, res) => {
-  res.status(200).json({ success: true, msg: "Get All Bootcamps." });
-});
+// Middleware
 
-app.get("/api/v1/bootcamp/:id", (req, res) => {
-  res.status(200).json({ success: true, msg: `Get Bootcamp ${req.params.id}` });
-});
+app.use(logger);
 
-app.post("/api/v1/bootcamp", (req, res) => {
-  res.status(200).json({ success: true, msg: "Create New Request" });
-});
-
-app.put("/api/v1/bootcamp/:id", (req, res) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `Update Bootcamp ${req.params.id}` });
-});
-
-app.delete("/api/v1/bootcamp/:id", (req, res) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `Delete Bootcamp ${req.params.id}` });
-});
+// Mount routers
+app.use("/api/v1/bootcamps", bootcamps);
 
 const PORT = process.env.PORT || 5000;
 
