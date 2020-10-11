@@ -1,5 +1,5 @@
 const Bootcamp = require("../models/Bootcamp");
-
+const ErrorResponse = require("../utils/errorResponse");
 /*
  * @desc     Get All Bootcamps
  * @route    GET /api/v1/bootcamps
@@ -25,12 +25,16 @@ exports.getBootcamp = async (req, res, next) => {
   try {
     const bootcamps = await Bootcamp.findById(req.params.id);
     if (!bootcamps) {
-      res.status(400).json({ success: false });
+      next(
+        new ErrorResponse(
+          `Bootcamp not found with ID of: ${req.params.id}`,
+          404
+        )
+      );
     } else {
       res.status(200).json({ success: true, data: bootcamps });
     }
   } catch (error) {
-    // res.status(400).json({ success: false });
     next(error);
   }
 };
@@ -46,7 +50,7 @@ exports.createBootcamp = async (req, res, next) => {
 
     res.status(201).json({ success: true, data: bootcamp });
   } catch (error) {
-    res.status(400).json({ success: false });
+    next(error);
   }
 };
 
@@ -62,12 +66,17 @@ exports.updateBootcamp = async (req, res, next) => {
       runValidators: true,
     });
 
-    if (!bootcamp) {
-      return res.status(400).json({ success: false });
+    if (!bootcamps) {
+      return next(
+        new ErrorResponse(
+          `Bootcamp not found with ID of: ${req.params.id}`,
+          404
+        )
+      );
     }
     res.status(200).json({ success: true, data: bootcamp });
   } catch (error) {
-    res.status(400).json({ success: false });
+    next(error);
   }
 };
 
@@ -80,11 +89,16 @@ exports.deleteBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
 
-    if (!bootcamp) {
-      return res.status(400).json({ success: false });
+    if (!bootcamps) {
+      return next(
+        new ErrorResponse(
+          `Bootcamp not found with ID of: ${req.params.id}`,
+          404
+        )
+      );
     }
     res.status(200).json({ success: true, data: {} });
   } catch (error) {
-    res.status(400).json({ success: false });
+    next(error);
   }
 };
